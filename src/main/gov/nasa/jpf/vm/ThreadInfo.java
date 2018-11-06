@@ -1858,7 +1858,7 @@ public class ThreadInfo extends InfoObject
       while (pc != null) {
         nextPc = executeInstruction();
 
-        if (ss.breakTransition()) {
+        if (ss.breakTransition()) { // ti.getVM().getSystemState().setNextChoiceGenerator(cg); makes it true
           if (ss.extendTransition()){
             continue outer;
             
