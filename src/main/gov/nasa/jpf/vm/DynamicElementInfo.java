@@ -122,6 +122,15 @@ public class DynamicElementInfo extends ElementInfo {
     }    
   }
   
+  @Override
+  public Integer asInteger() {
+	  if (!ci.name.equals("java.lang.Integer")) {
+	      throw new JPFException("object is not of type java.lang.Integer");
+	  }
+	  int value = getDeclaredIntField("value", "java.lang.Integer"); 
+      return new Integer(value);
+  }
+  
   /**
    * just a helper to avoid creating objects just for the sake of comparing
    */

@@ -1576,6 +1576,11 @@ public abstract class ElementInfo implements Cloneable {
     throw new JPFException("not a String object: " + this);    
   }
   
+  //add by rhjiang
+  public Integer asInteger() {
+	  throw new JPFException("not an Integer object: " + this);
+  }
+  
   /**
    * just a helper to avoid creating objects just for the sake of comparing
    */
