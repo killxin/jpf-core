@@ -149,41 +149,6 @@ public abstract class JVMInvokeInstruction extends InvokeInstruction implements 
   protected void setupCallee (ThreadInfo ti, MethodInfo callee){
     ClassInfo ciCaller = callee.getClassInfo();
     StackFrame frame = ciCaller.createStackFrame( ti, callee);
-    
-    if(callee.getFullName().equals("java.util.ArrayList.add(Ljava/lang/Object;)Z")) {
-    	ElementInfo base = ti.getModifiableElementInfo(frame.peek(1));
-    	Object sym_b = base != null ? base.getObjectAttr() : null;
-    	ElementInfo p1 = ti.getModifiableElementInfo(frame.peek(0));
-    	Object sym_p = p1 != null ? p1.getObjectAttr() : null;
-    	if(sym_b != null && sym_p != null) {
-    		Map<Object, Object> fAttr = new HashMap<>();
-            fAttr.put(base, sym_b);
-            fAttr.put(p1, sym_p);
-            frame.addFrameAttr(fAttr);
-            p1.removeObjectAttr(sym_p);
-            base.removeObjectAttr(sym_b);
-            System.out.println("setupCallee: "+p1.getObjectAttr());
-            System.out.println("setupCallee: "+base.getObjectAttr());
-    	}
-    }
-    
-    if(callee.getFullName().equals("java.util.ArrayList.get(I)Ljava/lang/Object;")) {
-    	ElementInfo base = ti.getModifiableElementInfo(frame.peek(1));
-    	Object sym_b = base != null ? base.getObjectAttr() : null;
-    	Object sym_p = frame.getOperandAttr(0);
-    	if(sym_b != null && sym_p != null) {
-    		Map<Object, Object> fAttr = new HashMap<>();
-            fAttr.put(base, sym_b);
-            // [@373,0(x_1_SYMINT)^top] --> [@373,0(x_1_SYMINT)^top-(top-1),@374^top]
-            // addOperandAttr(offset): top-offset, set offset = top-(top-1) = 1
-            fAttr.put(1, sym_p);
-            frame.addFrameAttr(fAttr);
-            frame.removeOperandAttr(sym_p);
-            base.removeObjectAttr(sym_b);
-            System.out.println("setupCallee: "+frame.getOperandAttr());
-            System.out.println("setupCallee: "+base.getObjectAttr());
-    	}
-    }
     ti.pushFrame(frame);
     ti.enter();
   }
