@@ -47,6 +47,9 @@ public class MessageDigest extends MessageDigestSpi {
   public native byte[] digest ();
 
   public native void update(byte[] input);
+  
+  // add by rhjiang, need to be skip
+  public native void update(byte[] input, int offset, int len);
 
   @Override
   protected native void finalize(); // to clean up
