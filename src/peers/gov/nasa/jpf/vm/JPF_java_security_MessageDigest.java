@@ -97,4 +97,12 @@ public class JPF_java_security_MessageDigest extends NativePeer {
     byte[] input = env.getByteArrayObject(inputRef);
     md.update(input);
   }
+  
+  // add by rhjiang
+  @MJI
+  public void update___3BII__V (MJIEnv env, int objRef, int inputRef, int offset, int len){
+//    MessageDigest md = getDigest(env, objRef);
+//    byte[] input = env.getByteArrayObject(inputRef);
+//    md.update(input, offset, len); //java.lang.ArrayIndexOutOfBoundsException
+  }
 }
